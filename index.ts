@@ -3,9 +3,9 @@ import { CustomMap } from "./CustomMap";
 
 const map = new CustomMap();
 
-const user = new User();
+const user = User.createRandom();
 
-const company = new Company();
+const company = Company.createRandom();
 
 map.addMarker(user);
 map.addMarker(company);

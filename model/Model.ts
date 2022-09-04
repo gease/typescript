@@ -1,3 +1,5 @@
+import { faker } from "@faker-js/faker";
+
 export interface Mappable {
   location: google.maps.LatLngLiteral;
   display(): string;
@@ -9,13 +11,29 @@ export class User implements Mappable {
   age: number;
   location: google.maps.LatLngLiteral;
 
-  constructor() {
-    this.firstName = "John";
-    this.lastName = "Johnson";
-    this.age = 25;
-    this.location = { lng: 30, lat: 40 };
+  constructor(
+    first_name: string,
+    last_name: string,
+    age: number,
+    location: google.maps.LatLngLiteral
+  ) {
+    this.firstName = first_name;
+    this.lastName = last_name;
+    this.age = age;
+    this.location = location;
   }
 
+  static createRandom() {
+    return new User(
+      faker.name.firstName(),
+      faker.name.lastName(),
+      parseInt(faker.random.numeric(2)),
+      {
+        lat: parseFloat(faker.address.latitude()),
+        lng: parseFloat(faker.address.longitude()),
+      }
+    );
+  }
   display(): string {
     return `<h1>${this.firstName} ${this.lastName}</h1>`;
   }
@@ -26,10 +44,21 @@ export class Company implements Mappable {
   catchphrase: string;
   location: google.maps.LatLngLiteral;
 
-  constructor() {
-    this.title = "Number one";
-    this.catchphrase = "Catch me if you can";
-    this.location = { lng: 50, lat: 50 };
+  constructor(
+    title: string,
+    catchphrase: string,
+    location: google.maps.LatLngLiteral
+  ) {
+    this.title = title;
+    this.catchphrase = catchphrase;
+    this.location = location;
+  }
+
+  static createRandom() {
+    return new Company(faker.company.name(), faker.company.catchPhrase(), {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    });
   }
 
   display() {
