@@ -1,21 +1,11 @@
-import axios from "axios";
+import { User, Company } from "./model/Model";
+import { CustomMap } from "./CustomMap";
 
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+const map = new CustomMap();
 
-axios.get("https://jsonplaceholder.typicode.com/todos/1").then((response) => {
-  const data = response.data as Todo;
-  logTodo(data.id, data.title, data.completed);
-});
+const user = new User();
 
-const logTodo = (id: number, title: string, completed: boolean) => {
-  console.log(
-    `Id is ${id}
-Title is ${title}
-Finished is ${completed}
-`
-  );
-};
+const company = new Company();
+
+map.addMarker(user);
+map.addMarker(company);
